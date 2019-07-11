@@ -20,7 +20,7 @@ We have **eliminated the unnecessary dependencies**; **enhanced the performance 
 * [Collect statistics on the use of open source](#Collect-statistics-on-the-use-of-open-source)
 * [Browser Support](#-browser-support)
 * [Documents](#-documents)
-* [The Toast UI Grid Is an Ultimate Transformer](#-the-toast-ui-grid-is-an-ultimate-transformer)
+* [The TOAST UI Grid Is an Ultimate Transformer](#-the-toast-ui-grid-is-an-ultimate-transformer)
     * [Data Can Be Displayed in Any Format](#data-can-be-displayed-in-any-format)
     * [Provides a Variety of Editing Elements](#provides-a-variety-of-editing-elements)
     * [Simple, Easy to Use Themes](#simple-easy-to-use-themes)
@@ -81,7 +81,7 @@ const instance = new Grid(options);
 
 You can also see the older versions of API page on the [releases page](https://github.com/nhn/tui.grid/releases).
 
-## 🤖 The Toast UI Grid Is an Ultimate Transformer
+## 🤖 The TOAST UI Grid Is an Ultimate Transformer
 
 ### Data Can Be Displayed in Any Format
 
@@ -367,7 +367,7 @@ For more information on PR's step, please see links of Contributing section.
 
 ## 🚀 Used By
 * [NCP - Commerce Platform](https://www.e-ncp.com/)
-* [Toast File](https://file.toast.com/)
+* [TOAST File](https://file.toast.com/)
 * [HANGAME](https://www.hangame.com/)
 * [TOAST Gamebase](https://docs.toast.com/ko/Game/Gamebase/ko/oper-analytics/)
 * [TOAST Dooray - Collaboration Service](https://dooray.com/)
