@@ -36,7 +36,6 @@ import { Observable, getOriginObject } from './helper/observable';
 import { createEventBus, EventBus } from './event/eventBus';
 import {
   getConditionalRows,
-  getCellAddressByIndex,
   getCheckedRows,
   findIndexByRowKey,
   findRowByRowKey
@@ -59,7 +58,7 @@ import { getDepth } from './helper/tree';
 import { cls, dataAttr } from './helper/dom';
 import { getRowSpanByRowKey } from './helper/rowSpan';
 import { sendHostname } from './helper/googleAnalytics';
-import { cell } from './theme/styleGenerator';
+import { createQuery, Query } from './query/create';
 
 /* eslint-disable */
 if ((module as any).hot) {
@@ -236,6 +235,8 @@ export default class Grid {
 
   private store: Store;
 
+  private query: Query;
+
   private dispatch: Dispatch;
 
   private eventBus: EventBus;
@@ -252,6 +253,7 @@ export default class Grid {
     const { el, usageStatistics = true, onGridMounted, onGridBeforeDestroyed } = options;
     const id = register(this);
     const store = createStore(id, options);
+    const query = createQuery(store);
     const dispatch = createDispatcher(store);
     const eventBus = createEventBus(id);
     const dataProvider = createProvider(store, dispatch, options.data);
@@ -261,6 +263,7 @@ export default class Grid {
 
     this.el = el;
     this.store = store;
+    this.query = query;
     this.dispatch = dispatch;
     this.eventBus = eventBus;
     this.dataProvider = dataProvider;
@@ -593,7 +596,7 @@ export default class Grid {
    * @returns {Boolean} true if success
    */
   public focusAt(rowIndex: number, columnIndex: number, isScrollable?: boolean) {
-    const { rowKey, columnName } = getCellAddressByIndex(this.store, rowIndex, columnIndex);
+    const { rowKey, columnName } = this.query('getCellAddressByIndex', rowIndex, columnIndex);
 
     if (!isUndefined(rowKey) && columnName) {
       return this.focus(rowKey, columnName, isScrollable);
@@ -627,7 +630,7 @@ export default class Grid {
    * @param {boolean} [setScroll=false] - If set to true, the view will scroll to the cell element.
    */
   public startEditingAt(rowIndex: number, columnIndex: number, setScroll?: boolean) {
-    const { rowKey, columnName } = getCellAddressByIndex(this.store, rowIndex, columnIndex);
+    const { rowKey, columnName } = this.query('getCellAddressByIndex', rowIndex, columnIndex);
 
     this.startEditing(rowKey, columnName, setScroll);
   }

@@ -21,18 +21,25 @@ type QueryMap = typeof queryMap;
 type QueryFnKeys = keyof QueryMap;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RestParameters<T> = T extends (first: any, ...args: infer P) => any ? P : never;
+type ReturnType<T extends (...args: any[]) => any> = T extends (...args: any[]) => infer R
+  ? R
+  : never;
 
 export interface Query {
-  <T extends QueryFnKeys>(fname: T, ...args: RestParameters<QueryMap[T]>): void;
+  <T extends QueryFnKeys>(fname: T, ...args: RestParameters<QueryMap[T]>): ReturnType<QueryMap[T]>;
 }
 
 export interface QueryProps {
   query: Query;
 }
+export interface QueryArgs {
+  query: Query;
+  store: Store;
+}
 
 export function createQuery(store: Store): Query {
   return function query(fname, ...args) {
     // @ts-ignore
-    queryMap[fname](store, query, ...args);
+    return queryMap[fname]({ store, query }, ...args);
   };
 }

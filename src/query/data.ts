@@ -2,9 +2,10 @@ import { Store, RowKey, Data, Row, Dictionary, Column } from '../store/types';
 import { findProp, isFunction, findPropIndex, isNull, isUndefined } from '../helper/common';
 import { getDataManager } from '../instance';
 import { isRowSpanEnabled } from '../helper/rowSpan';
+import { QueryArgs } from './create';
 
 export function getCellAddressByIndex(
-  { data, column }: Store,
+  { store: { data, column } }: QueryArgs,
   rowIndex: number,
   columnIndex: number
 ) {
