@@ -130,35 +130,6 @@ export function keyEventGenerate(ev: KeyboardEvent) {
     : {};
 }
 
-function findOffsetIndex(offsets: number[], cellBorderWidth: number, position: number) {
-  position += cellBorderWidth * 2;
-
-  const idx = findIndex(offset => offset - cellBorderWidth > position, offsets);
-
-  return idx >= 0 ? idx - 1 : offsets.length - 1;
-}
-
-export function getPageMovedPosition(
-  rowIndex: number,
-  offsets: number[],
-  bodyHeight: number,
-  isPrevDir: boolean
-) {
-  const distance = isPrevDir ? -bodyHeight : bodyHeight;
-
-  return offsets[rowIndex] + distance;
-}
-
-export function getPageMovedIndex(
-  offsets: number[],
-  cellBorderWidth: number,
-  movedPosition: number
-) {
-  const movedIndex = findOffsetIndex(offsets, cellBorderWidth, movedPosition);
-
-  return clamp(movedIndex, 0, offsets.length - 1);
-}
-
 export function getPrevRowIndex(rowIndex: number, heights: number[]) {
   let index = rowIndex;
 
