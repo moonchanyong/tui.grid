@@ -13,7 +13,7 @@ import { SummaryPosition, ViewRow, EditingEvent, RowKey } from '../store/types';
 import { EventBus, getEventBus } from '../event/eventBus';
 import GridEvent from '../event/gridEvent';
 import { isMobile } from '../helper/browser';
-import { isEmpty, isNull } from '../helper/common';
+import { isEmpty, isNull, findPropIndex } from '../helper/common';
 
 interface OwnProps {
   rootElement: HTMLElement;
@@ -131,7 +131,10 @@ export class ContainerComp extends Component<Props> {
     if (!isNull(rowKey)) {
       dispatch('removeRowClassName', this.hoveredRowKey!, cls('row-hover'));
 
-      if (isEmpty(viewData[rowKey].rowSpanMap) && this.hoveredRowKey !== rowKey) {
+      if (
+        isEmpty(viewData[findPropIndex('rowKey', rowKey, viewData)].rowSpanMap) &&
+        this.hoveredRowKey !== rowKey
+      ) {
         this.hoveredRowKey = rowKey;
         dispatch('addRowClassName', rowKey, cls('row-hover'));
       }
